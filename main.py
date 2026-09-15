@@ -298,7 +298,7 @@ with tab_apercu:
     col_gauche, col_droite = st.columns([1, 1])
     with col_gauche:
         st.markdown("**Où se place la sélection sur OVR ?**")
-       st.pyplot(build_ovr_distribution_chart(df, sel), use_container_width=False)
+        st.pyplot(build_ovr_distribution_chart(df, sel), use_container_width=False)
     with col_droite:
         st.markdown("**Sélection vs reste du dataset**")
         st.dataframe(compare_selection_vs_rest(df, sel), use_container_width=True, hide_index=True)
@@ -311,10 +311,10 @@ with tab_visu:
     col1, col2 = st.columns(2)
     with col1:
         st.markdown("**PAC par poste** — quel poste est le plus rapide dans la sélection ?")
-      st.pyplot(build_pac_by_position_chart(sel), use_container_width=False)
+        st.pyplot(build_pac_by_position_chart(sel), use_container_width=False)
     with col2:
         st.markdown("**Vitesse vs Dribble** — coloré par championnat, top 3 cerclé")
-       st.pyplot(build_pac_dri_scatter_chart(sel, league_palette, top_names=top3_noms), use_container_width=False)
+        st.pyplot(build_pac_dri_scatter_chart(sel, league_palette, top_names=top3_noms), use_container_width=False)
 
     st.markdown("**Corrélations entre statistiques** — quels profils vont ensemble ?")
     st.pyplot(build_correlation_heatmap_chart(sel), use_container_width=False)
@@ -323,7 +323,7 @@ with tab_visu:
 with tab_classement:
     stat_choisie = st.selectbox("Statistique à classer", STATS_CLES, index=0)
     st.markdown(f"**Quel championnat porte les meilleurs profils sur {stat_choisie} ?**")
-    st.pyplot(build_radar_comparison_chart(sel, noms_choisis), use_container_width=False)
+    st.pyplot(build_league_ranking_chart(sel, stat=stat_choisie, excluded_leagues=exclusions_actives), use_container_width=False)
 
 # --- Onglet 4 : comparateur de joueurs (radar) ---
 with tab_comparateur:
@@ -331,7 +331,7 @@ with tab_comparateur:
     noms_dispo = sel.sort_values("OVR", ascending=False)["Name"].tolist()
     noms_choisis = st.multiselect("Joueurs à comparer", noms_dispo, default=noms_dispo[:2], max_selections=3)
     if noms_choisis:
-      st.pyplot(build_radar_comparison_chart(sel, [joueur]), use_container_width=False)
+        st.pyplot(build_radar_comparison_chart(sel, noms_choisis), use_container_width=False)
     else:
         st.info("Sélectionnez au moins un joueur.")
 
@@ -351,7 +351,7 @@ with tab_fiche:
             f"PAS {ligne['PAS']} · DRI {ligne['DRI']} · DEF {ligne['DEF']} · PHY {ligne['PHY']}"
         )
     with col_radar:
-        st.pyplot(build_radar_comparison_chart(sel, [joueur]))
+        st.pyplot(build_radar_comparison_chart(sel, [joueur]), use_container_width=False)
 
     st.markdown("**Alternatives au profil** — joueurs statistiquement proches, dans tout le dataset")
     st.dataframe(build_ranking_table(find_similar_players(df, joueur, top_n=5)), use_container_width=True)
