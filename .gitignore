@@ -1,0 +1,4 @@
+.env
+__pycache__/
+*.pyc
+data/market_value_cache.json
