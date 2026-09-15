@@ -322,16 +322,22 @@ with tab_visu:
 # --- Onglet 3 : classements ---
 with tab_classement:
     stat_choisie = st.selectbox("Statistique à classer", STATS_CLES, index=0)
+    echelle_classement = st.slider("Taille du graphique", 0.7, 2.0, 1.0, 0.1, key="echelle_classement")
     st.markdown(f"**Quel championnat porte les meilleurs profils sur {stat_choisie} ?**")
-    st.pyplot(build_league_ranking_chart(sel, stat=stat_choisie, excluded_leagues=exclusions_actives), use_container_width=False)
+    st.pyplot(
+        build_league_ranking_chart(sel, stat=stat_choisie, excluded_leagues=exclusions_actives,
+                                    echelle=echelle_classement),
+        use_container_width=False,
+    )
 
 # --- Onglet 4 : comparateur de joueurs (radar) ---
 with tab_comparateur:
     st.markdown("Choisissez 2 ou 3 joueurs de la sélection à comparer.")
     noms_dispo = sel.sort_values("OVR", ascending=False)["Name"].tolist()
     noms_choisis = st.multiselect("Joueurs à comparer", noms_dispo, default=noms_dispo[:2], max_selections=3)
+    echelle_radar = st.slider("Taille du graphique", 0.7, 2.0, 1.0, 0.1, key="echelle_radar")
     if noms_choisis:
-        st.pyplot(build_radar_comparison_chart(sel, noms_choisis), use_container_width=False)
+        st.pyplot(build_radar_comparison_chart(sel, noms_choisis, echelle=echelle_radar), use_container_width=False)
     else:
         st.info("Sélectionnez au moins un joueur.")
 

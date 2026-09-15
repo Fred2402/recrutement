@@ -15,6 +15,7 @@ from matplotlib.colors import LinearSegmentedColormap
 from src.config import COLOR_SELECTION
 
 _GRAD = LinearSegmentedColormap.from_list("grad", ["#eef3fa", COLOR_SELECTION])
+_TAILLE_BASE = (4.2, 3.4)  # en pouces, à echelle=1.0
 
 
 def build_league_ranking_chart(
@@ -22,8 +23,13 @@ def build_league_ranking_chart(
     stat: str = "OVR",
     top_n: int = 10,
     excluded_leagues: list[str] = None,
+    echelle: float = 1.0,
 ) -> plt.Figure:
-    fig, ax = plt.subplots(figsize=(4.2, 3.4), dpi=120)
+    """`echelle` multiplie la taille de base (1.0 = normal, 1.5 = 50 % plus
+    grand, etc.) — branché sur un slider dans l'interface.
+    """
+    largeur, hauteur = _TAILLE_BASE
+    fig, ax = plt.subplots(figsize=(largeur * echelle, hauteur * echelle), dpi=120)
 
     excluded_leagues = excluded_leagues or []
     if excluded_leagues:
@@ -39,14 +45,18 @@ def build_league_ranking_chart(
     )
     couleurs = [_GRAD(0.3 + 0.7 * v) for v in norm]
 
+    taille_police = max(7, int(9 * min(echelle, 1.4)))
+
     bars = ax.barh(classement.index[::-1], classement.values[::-1], color=couleurs[::-1])
-    ax.bar_label(bars, fmt="%.1f", padding=3)
+    ax.bar_label(bars, fmt="%.1f", padding=3, fontsize=taille_police)
     ax.set_xticks([])
-    ax.set_title(f"{stat} moyen par championnat (sélection)")
+    ax.set_title(f"{stat} moyen par championnat (sélection)", fontsize=taille_police + 1)
+    ax.tick_params(axis="y", labelsize=taille_police)
 
     if excluded_leagues:
         note = "Exclus de ce classement : " + ", ".join(excluded_leagues)
-        fig.text(0.01, -0.02, note, fontsize=7.5, color="#888888", style="italic", wrap=True)
+        fig.text(0.01, -0.02, note, fontsize=max(6, taille_police - 2), color="#888888",
+                 style="italic", wrap=True)
 
     fig.tight_layout()
     return fig
