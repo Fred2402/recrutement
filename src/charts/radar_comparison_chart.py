@@ -15,7 +15,7 @@ def build_radar_comparison_chart(df: pd.DataFrame, noms_joueurs: list[str]) -> p
     angles = [n / float(len(RADAR_STATS)) * 2 * pi for n in range(len(RADAR_STATS))]
     angles += angles[:1]
 
-    fig, ax = plt.subplots(figsize=(6, 6), subplot_kw=dict(polar=True))
+    fig, ax = plt.subplots(figsize=(4, 4), dpi=120, subplot_kw=dict(polar=True))
     palette = ["#2a78d6", "#e63946", "#40916c"]
 
     for nom, couleur in zip(noms_joueurs[:3], palette):

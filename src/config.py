@@ -16,9 +16,9 @@ DATA_PATH = BASE_DIR / "data" / "all_players_clean.csv"
 GRAPHIQUE_DIR = BASE_DIR / "graphique"
 
 # --- Rôles de couleur fixes (jamais liés à un rang/classement) ---
-COLOR_SELECTION = "#2a78d6"    # la sélection courante, partout
-COLOR_BACKGROUND = "#c9c9c9"   # le reste du dataset, toujours gris
-COLOR_ACCENT = "#e63946"       # mise en avant ponctuelle / alerte
+COLOR_SELECTION = "#4F46E5"    # indigo — la sélection courante, partout
+COLOR_BACKGROUND = "#CBD5E1"   # gris ardoise — le reste du dataset, toujours
+COLOR_ACCENT = "#F59E0B"       # ambre — mise en avant ponctuelle / alerte
 
 # --- Métier ---
 GRANDS_CHAMPIONNATS = [
@@ -42,10 +42,11 @@ COLONNES_TABLE = ["Name", "Team", "League", "Position", "Age", "OVR", "PAC", "DR
 STATS_CLES = ["OVR", "PAC", "SHO", "PAS", "DRI", "DEF", "PHY"]
 STATS_SIMILARITE = ["PAC", "SHO", "PAS", "DRI", "DEF", "PHY"]
 
-# Palette qualitative de secours pour les championnats (10 teintes distinctes)
+# Palette qualitative de secours pour les championnats (10 teintes distinctes,
+# choisies pour rester lisibles et harmonieuses ensemble)
 _PALETTE_QUALITATIVE = [
-    "#2a78d6", "#e63946", "#40916c", "#e0a458", "#6a4c93",
-    "#457b9d", "#bc6c25", "#588157", "#9e2a2b", "#3a5a40",
+    "#4F46E5", "#F59E0B", "#10B981", "#EF4444", "#06B6D4",
+    "#8B5CF6", "#EC4899", "#84CC16", "#F97316", "#14B8A6",
 ]
 
 

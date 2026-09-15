@@ -10,7 +10,7 @@ from src.config import COLOR_SELECTION
 
 
 def build_pac_by_position_chart(sel: pd.DataFrame) -> plt.Figure:
-    fig, ax = plt.subplots(figsize=(5.5, 4))
+    fig, ax = plt.subplots(figsize=(4, 2.9), dpi=120)
     if not sel.empty:
         order = sel.groupby("Position")["PAC"].median().sort_values(ascending=False).index
         sns.boxplot(data=sel, x="Position", y="PAC", order=order, color=COLOR_SELECTION, ax=ax)

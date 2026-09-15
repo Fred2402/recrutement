@@ -49,21 +49,122 @@ st.set_page_config(page_title="Cellule de recrutement", layout="wide")
 st.markdown(
     """
     <style>
-    #MainMenu, footer, header {visibility: hidden;}
-    .block-container {padding-top: 2rem; padding-bottom: 2rem;}
-    div[data-testid="stMetricValue"] {font-size: 1.6rem;}
-    h1 {font-weight: 600; letter-spacing: -0.02em;}
-    .verdict-card {
-        background-color: #f5f9ff;
-        border: 1px solid #dbe6f6;
-        border-left: 4px solid #2a78d6;
-        border-radius: 6px;
-        padding: 1rem 1.25rem;
-        margin-bottom: 1rem;
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@600;700;800&display=swap');
+
+    :root {
+        --accent: #4F46E5;
+        --accent-dark: #4338CA;
+        --accent-soft: #EEF2FF;
+        --gold: #F59E0B;
+        --gold-soft: #FFFBEB;
+        --ink: #1E1B2E;
+        --muted: #64748B;
+        --card-bg: #FFFFFF;
+        --page-bg: #F6F7FB;
+        --border: #E5E7EB;
     }
-    .verdict-card .name {font-size: 1.1rem; font-weight: 700; color: #1a1a1a;}
-    .verdict-card .meta {font-size: 0.9rem; color: #555555;}
-    .verdict-card .score {font-size: 1.4rem; font-weight: 700; color: #2a78d6;}
+
+    html, body, [class*="css"] {
+        font-family: 'Inter', sans-serif;
+    }
+
+    .stApp {
+        background: var(--page-bg);
+    }
+
+    #MainMenu, footer, header {visibility: hidden;}
+    .block-container {padding-top: 2rem; padding-bottom: 3rem; max-width: 1200px;}
+
+    h1, h2, h3 {
+        font-family: 'Sora', sans-serif;
+        color: var(--ink);
+        letter-spacing: -0.02em;
+    }
+    h1 {font-weight: 800; font-size: 2.1rem;}
+
+    p, .stMarkdown, .stCaption {color: var(--ink);}
+    .stCaption, [data-testid="stCaptionContainer"] {color: var(--muted) !important;}
+
+    /* --- Sidebar --- */
+    section[data-testid="stSidebar"] {
+        background: var(--card-bg);
+        border-right: 1px solid var(--border);
+    }
+    section[data-testid="stSidebar"] h2, section[data-testid="stSidebar"] label {
+        font-family: 'Inter', sans-serif;
+        font-weight: 600;
+        color: var(--ink);
+    }
+
+    /* --- Chiffres clés (st.metric) en cartes --- */
+    div[data-testid="stMetric"] {
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 1rem 1.1rem;
+        box-shadow: 0 1px 3px rgba(30, 27, 46, 0.04);
+    }
+    div[data-testid="stMetricLabel"] {
+        font-weight: 600; color: var(--muted); text-transform: uppercase;
+        font-size: 0.72rem; letter-spacing: 0.04em;
+    }
+    div[data-testid="stMetricValue"] {
+        font-family: 'Sora', sans-serif; font-size: 1.65rem; color: var(--ink);
+    }
+
+    /* --- Carte verdict --- */
+    .verdict-card {
+        background: linear-gradient(135deg, var(--accent-soft) 0%, #FFFFFF 100%);
+        border: 1px solid #DDD6FE;
+        border-radius: 16px;
+        padding: 1.4rem 1.6rem;
+        margin: 0.5rem 0 1.3rem 0;
+        box-shadow: 0 4px 14px rgba(79, 70, 229, 0.08);
+        position: relative;
+        overflow: hidden;
+    }
+    .verdict-card::before {
+        content: "";
+        position: absolute; top: 0; left: 0; bottom: 0; width: 5px;
+        background: linear-gradient(180deg, var(--accent), var(--gold));
+    }
+    .verdict-card .meta {font-size: 0.82rem; color: var(--muted); font-weight: 500; letter-spacing: 0.02em;}
+    .verdict-card .name {font-family: 'Sora', sans-serif; font-size: 1.3rem; font-weight: 700; color: var(--ink); margin: 0.15rem 0;}
+    .verdict-card .score {
+        font-family: 'Sora', sans-serif; font-size: 1.6rem; font-weight: 800;
+        color: var(--accent-dark); margin: 0.3rem 0;
+    }
+
+    /* --- Onglets --- */
+    .stTabs [data-baseweb="tab-list"] {
+        gap: 4px; background: var(--card-bg); padding: 6px; border-radius: 12px;
+        border: 1px solid var(--border);
+    }
+    .stTabs [data-baseweb="tab"] {
+        border-radius: 8px; padding: 8px 16px; font-weight: 600; color: var(--muted);
+    }
+    .stTabs [aria-selected="true"] {
+        background: var(--accent) !important; color: white !important;
+    }
+
+    /* --- Boutons --- */
+    .stButton > button, .stDownloadButton > button {
+        border-radius: 10px; font-weight: 600; border: 1px solid var(--accent);
+        color: var(--accent); background: white; transition: all 0.15s ease;
+    }
+    .stButton > button:hover, .stDownloadButton > button:hover {
+        background: var(--accent); color: white;
+    }
+
+    /* --- Cartes (data editor / dataframe) --- */
+    div[data-testid="stDataFrame"] {
+        border: 1px solid var(--border); border-radius: 12px; overflow: hidden;
+    }
+
+    /* --- Champs de saisie --- */
+    .stTextInput input, .stNumberInput input, .stSelectbox div[data-baseweb="select"] {
+        border-radius: 8px !important;
+    }
     </style>
     """,
     unsafe_allow_html=True,

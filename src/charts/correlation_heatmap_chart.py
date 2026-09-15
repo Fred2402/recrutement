@@ -13,7 +13,7 @@ _DIV_CMAP = LinearSegmentedColormap.from_list("div", ["#e63946", "#f6f3ea", "#2a
 
 
 def build_correlation_heatmap_chart(sel: pd.DataFrame) -> plt.Figure:
-    fig, ax = plt.subplots(figsize=(6, 5.5))
+    fig, ax = plt.subplots(figsize=(4.2, 3.6), dpi=120)
     if len(sel) < 3:
         ax.set_title("Sélection trop petite pour calculer des corrélations")
         return fig

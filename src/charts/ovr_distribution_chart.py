@@ -12,7 +12,7 @@ from src.config import COLOR_BACKGROUND, COLOR_SELECTION
 
 
 def build_ovr_distribution_chart(df_all: pd.DataFrame, sel: pd.DataFrame) -> plt.Figure:
-    fig, ax = plt.subplots(figsize=(5.5, 4))
+    fig, ax = plt.subplots(figsize=(4, 2.9), dpi=120)
     sns.kdeplot(df_all["OVR"], color=COLOR_BACKGROUND, fill=True, label="Ensemble du dataset", ax=ax)
     if not sel.empty:
         sns.kdeplot(sel["OVR"], color=COLOR_SELECTION, fill=True, label="Sélection", ax=ax)

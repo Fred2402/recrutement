@@ -17,8 +17,26 @@ try:
 except ImportError:
     pass  # python-dotenv est optionnel : la clé peut aussi être exportée directement dans l'environnement
 
+
+def _lire_cle_api() -> str:
+    valeur = os.environ.get("PLAYERELO_API_KEY", "")
+    if valeur:
+        return valeur
+
+    # En local, la clé vient du .env. Une fois déployé sur Streamlit
+    # Community Cloud, elle est définie dans les "Secrets" de l'app plutôt
+    # que dans un fichier — on va la chercher là si elle est absente de
+    # l'environnement, sans planter si aucun secret n'est configuré.
+    try:
+        import streamlit as st
+
+        return st.secrets.get("PLAYERELO_API_KEY", "")
+    except Exception:
+        return ""
+
+
 BASE_URL = "https://data-api.playerelo.football"
-API_KEY = os.environ.get("PLAYERELO_API_KEY", "")
+API_KEY = _lire_cle_api()
 TIMEOUT_SECONDS = 8
 
 # Nom du paramètre de recherche par nom sur GET /v1/players. Confirmé

@@ -15,7 +15,7 @@ from src.config import COLOR_ACCENT, COLOR_BACKGROUND
 
 
 def build_pac_dri_scatter_chart(sel: pd.DataFrame, league_palette: dict, top_names: list[str] = None) -> plt.Figure:
-    fig, ax = plt.subplots(figsize=(5.5, 4))
+    fig, ax = plt.subplots(figsize=(4, 2.9), dpi=120)
     if not sel.empty:
         sel = sel.copy()
         sel["Championnat"] = sel["League"].where(sel["League"].isin(league_palette), "Autres")

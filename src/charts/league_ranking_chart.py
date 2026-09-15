@@ -23,7 +23,7 @@ def build_league_ranking_chart(
     top_n: int = 10,
     excluded_leagues: list[str] = None,
 ) -> plt.Figure:
-    fig, ax = plt.subplots(figsize=(6, 5))
+    fig, ax = plt.subplots(figsize=(4.2, 3.4), dpi=120)
 
     excluded_leagues = excluded_leagues or []
     if excluded_leagues:
